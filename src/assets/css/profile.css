@@ -1,0 +1,64 @@
+.profile .title {
+    text-align: left;
+    height: 41px;
+    line-height: 41px;
+}
+
+.profile .title a:hover {
+    color: orange;
+}
+
+.profile .pro-container {
+    display: flex;
+    justify-content: space-between;
+}
+
+.profile .pro-container .left {
+    width: 20%;
+    background-color: white;
+}
+
+.profile .pro-container .left .order,
+.profile .pro-container .left .pro,
+.profile .pro-container .left .account {
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+    text-align: left;
+    box-sizing: border-box;
+    padding-left: 45px;
+}
+
+.profile .pro-container .left .order {
+    height: 184px;
+}
+
+.profile .pro-container .left .pro {
+    height: 150px;
+}
+
+.profile .pro-container .left .account {
+    height: 100px;
+}
+
+.profile .pro-container .left dl {
+    margin-bottom: 5px;
+}
+
+.profile .pro-container .left dt {
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 52px;
+    color: #333;
+    margin: 0;
+    padding: 0;
+}
+
+.profile .pro-container .left dd {
+    color: #928f8f;
+}
+
+.profile .pro-container .right {
+    width: 75%;
+    background-color: white;
+}

@@ -1,0 +1,75 @@
+@font-face {
+  font-family: "iconfont"; /* Project id 2706667 */
+  src: url('iconfont.woff2?t=1628736744104') format('woff2'),
+       url('iconfont.woff?t=1628736744104') format('woff'),
+       url('iconfont.ttf?t=1628736744104') format('truetype');
+}
+
+.iconfont {
+  font-family: "iconfont" !important;
+  font-size: 16px;
+  font-style: normal;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-delete:before {
+  content: "\e618";
+}
+
+.icon-xiugai1:before {
+  content: "\e60f";
+}
+
+.icon-true1:before {
+  content: "\e640";
+}
+
+.icon-true2:before {
+  content: "\e6f7";
+}
+
+.icon-true:before {
+  content: "\e702";
+}
+
+.icon-minus2-12:before {
+  content: "\e602";
+}
+
+.icon-add:before {
+  content: "\e60e";
+}
+
+.icon-message:before {
+  content: "\eb55";
+}
+
+.icon-address:before {
+  content: "\e617";
+}
+
+.icon-liwu:before {
+  content: "\e608";
+}
+
+.icon-weixiu:before {
+  content: "\e600";
+}
+
+.icon-tianmianfeihuanhuo_px:before {
+  content: "\e60c";
+}
+
+.icon-footer-7:before {
+  content: "\e601";
+}
+
+.icon-plus:before {
+  content: "\e627";
+}
+
+.icon-err1:before {
+  content: "\e605";
+}
+

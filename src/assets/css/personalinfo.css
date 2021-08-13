@@ -1,0 +1,102 @@
+.personalinfo {
+    padding: 40px;
+}
+
+.personalinfo .top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.personalinfo .top .left {
+    width: 50%;
+    display: flex;
+    /* align-items: center; */
+}
+
+.personalinfo .top .left img {
+    width: 160px;
+    height: 160px;
+    border-radius: 50%;
+    margin-right: 20px;
+}
+
+.personalinfo .top .left .profile {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.personalinfo .top .left .profile span {
+    font-size: 24px;
+    font-weight: 400;
+    color: #616161;
+    margin-top: 10px;
+}
+
+.personalinfo .top .left .profile a {
+    font-size: 12px;
+    color: #ff6700;
+    margin-top: 10px;
+}
+
+.personalinfo .top .right {
+    width: 50%;
+    text-align: left;
+}
+
+.personalinfo .top .right p {
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.personalinfo .top .right p i {
+    color: gray;
+}
+
+.personalinfo .top .right p span:nth-child(2) {
+    margin-right: 10px;
+}
+
+.personalinfo .top .right div a {
+    margin-left: 5px;
+    font-size: 12px;
+    color: orangered;
+}
+
+.personalinfo .bootom ul {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 40px;
+    flex-wrap: wrap;
+    align-items: center;
+}
+
+.personalinfo .bootom ul li {
+    width: 50%;
+    display: flex;
+    margin-top: 30px;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+.personalinfo .bootom ul li div {
+    display: flex;
+    flex-direction: column;
+    margin-left: 20px;
+    align-items: flex-start;
+}
+
+.personalinfo .bootom ul li div span {
+    font-size: 18px;
+    font-weight: 400;
+    margin-bottom: 5px;
+}
+
+.personalinfo .bootom ul li div a {
+    font-size: 14px;
+    color: #757575;
+}
+
+
+/* .personalinfo .bootom ul li{} */

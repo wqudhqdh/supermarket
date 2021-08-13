@@ -1,0 +1,131 @@
+.header {
+    position: relative;
+    color: #b0b0b0;
+}
+
+.header a {
+    color: #b0b0b0;
+}
+
+.header .head-top {
+    height: 40px;
+    font-weight: 400;
+    font-size: 14px;
+    background-color: black;
+}
+
+.head-top .left {
+    width: 70%;
+}
+
+.head-top .left ul {
+    width: 100%;
+    height: 40px;
+    line-height: 40px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.head-top .left ul li {
+    justify-content: space-around;
+}
+
+.head-top .right {
+    width: 30%;
+}
+
+.head-top .right ul {
+    width: 100%;
+    height: 40px;
+    line-height: 40px;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.head-top .right ul li {
+    color: #b0b0b0;
+    margin-left: 20px;
+}
+
+.head-top .right ul li img {
+    border-radius: 50%;
+}
+
+.head-top .right ul .cart:hover {
+    background-color: white;
+    color: tomato;
+}
+
+.head-bottom {
+    width: 100%;
+    height: 100px;
+    background-color: white;
+    display: flex;
+    padding-left: 70px;
+    position: relative;
+    box-sizing: border-box;
+}
+
+.head-bottom .bottom-left {
+    width: 62px;
+    height: 100%;
+}
+
+.head-bottom .bottom-left img {
+    margin-top: 18px;
+    width: 100%;
+}
+
+.head-bottom .bottom-middle {
+    flex: 1;
+    box-sizing: border-box;
+    line-height: 100px;
+    color: #333;
+    font-size: 16px;
+}
+
+.head-bottom .bottom-middle ul li:hover {
+    color: orangered;
+    cursor: pointer;
+}
+
+.head-bottom .bottom-middle ul {
+    display: flex;
+    padding-left: 100px;
+    justify-content: space-around;
+}
+
+.head-bottom .bottom-right {
+    width: 450px;
+    height: 100%;
+    /* background-color: rgb(158, 128, 128); */
+    display: flex;
+    justify-content: center;
+}
+
+.head-bottom .bottom-right form {
+    width: 297px;
+    height: 100%;
+    /* border: 1px solid red; */
+    display: flex;
+    align-items: center;
+}
+
+.head-bottom .bottom-right form input {
+    width: 245px;
+    height: 50px;
+    border: 1px solid #e0e0e0;
+}
+
+.head-bottom .bottom-right form span {
+    width: 52px;
+    height: 50px;
+    border: 1px solid #e0e0e0;
+    border-left: none;
+    line-height: 55px;
+}
+
+.head-bottom .bottom-right form span i {
+    font-size: 24px;
+    color: #616161;
+}
