@@ -8,7 +8,7 @@
           <div>单价</div>
           <div>实付款</div>
           <div>交易状态</div>
-          <div v-if="item.state!=3">交易操作</div>
+          <div v-if="item.state != 3">交易操作</div>
         </li>
         <li v-for="(item2, index2) in item.product" :key="index2">
           <div>
@@ -25,10 +25,21 @@
           <div v-else-if="item.state === 1">待发货</div>
           <div v-else-if="item.state === 2">待收货</div>
           <div v-else-if="item.state === 3">交易取消</div>
-          <div @click="deleteOrder(item,index)" v-if="item.state === 1||item.state===2">
+          <div
+            @click="deleteOrder(item, index)"
+            v-if="item.state === 1 || item.state === 2"
+          >
             <i class="iconfont icon-delete"></i>
           </div>
-          <button class="checkout" v-else-if="item.state===0">去支付</button>
+          <div v-else-if="item.state === 0">
+            <button class="checkout" @click="toPay(getTotalPrice(item), index)">
+              去支付
+            </button>
+            <i
+              class="iconfont icon-delete"
+              @click="deleteOrder(item, index)"
+            ></i>
+          </div>
         </li>
         <div class="order-address">
           <div>
@@ -47,13 +58,13 @@
   </div>
 </template>
 <script>
-import { ModifyOrderByState} from "network/order.js";
+import { ModifyOrderByState, Modifyinventory } from "network/order.js";
 export default {
   name: "contentOrder",
   data() {
     return {};
   },
-  props: ["orderlist"],
+  props: ["orderlist","flag"],
   computed: {
     getTotal() {
       return (item) => {
@@ -71,8 +82,60 @@ export default {
     },
   },
   methods: {
+    // 去支付
+    toPay(value, index) {
+      let item = this.orderlist[index];
+      let paypassword = prompt("请输入您的支付密码", "");
+      if (paypassword === this.$store.state.personal.paypassword) {
+        let account = this.$store.state.personal.account - value;
+        if (account < 0) {
+          alert("余额不足，请充值");
+        } else {
+          // 修改账户余额
+          this.$store.dispatch("changeAccount", account).then((res) => {
+            if (res === "success") {
+              //  修改订单状态
+              let p = new Promise((resolve, reject) => {
+                ModifyOrderByState(item.orderid, 1).then((res) => {
+                  console.log(res);
+                  let oid = item.orderid;
+                  let state = 1;
+                  this.$store.commit({
+                    type: "modifyOrderstate",
+                    oid,
+                    state,
+                  });
+                  this.orderlist[index].state = 1;
+                  resolve();
+                });
+              });
+              p.then(() => {
+                // 修改库存和销量
+               let cart= this.orderlist[index].product;
+              //  console.log(cart)
+                cart.forEach((item, index, arr) => {
+                  item._id = item.paramerid;
+                  item.inventory -= item.num;
+                  item.sales += item.num;
+                });
+                Modifyinventory(cart).then((res) => {
+                  if (res === "success") {
+                   if(this.flag===0)
+                   {
+                       this.orderlist.splice(index, 1);
+                   }
+                  }
+                });
+              });
+            }
+          });
+        }
+      } else {
+        alert("密码错误，请重试");
+      }
+    },
     //   删除订单
-    deleteOrder(item,index) {
+    deleteOrder(item, index) {
       let flag;
       // 0未支付
       //1已支付
@@ -89,16 +152,16 @@ export default {
         return;
       }
       if (flag) {
-          console.log(flag)
-        ModifyOrderByState(item.orderid,3).then((res) => {
-            console.log(res)
-            let oid=item.orderid
-            let state=3
-              this.$store.commit({
-                  type:'modifyOrderstate',
-                  oid,
-                  state
-              })
+        console.log(flag);
+        ModifyOrderByState(item.orderid, 3).then((res) => {
+          console.log(res);
+          let oid = item.orderid;
+          let state = 3;
+          this.$store.commit({
+            type: "modifyOrderstate",
+            oid,
+            state,
+          });
           this.orderlist.splice(index, 1);
         });
       }
@@ -125,14 +188,13 @@ export default {
   justify-content: space-between;
   align-items: center;
 }
-.contentOrder .item ul li .checkout
-{
-    background-color: orangered;
-    color: white;
-    border: none;
-    width: 80px;
-    height: 30px;
-    font-size: 16px;
+.contentOrder .item ul li .checkout {
+  background-color: orangered;
+  color: white;
+  border: none;
+  width: 80px;
+  height: 30px;
+  font-size: 16px;
 }
 .contentOrder .item ul li:nth-child(1),
 .contentOrder .item ul .order-address {

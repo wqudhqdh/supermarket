@@ -1,7 +1,6 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import { ChangeAccount } from 'network/profile.js'
-import { resolve } from 'core-js/es/promise'
 //安装插件
 Vue.use(Vuex)
 
@@ -13,7 +12,8 @@ const store = new Vuex.Store({
             showState: 1,
             addressinfo: null, //地址信息
             addressflag: 0,
-            orderlist: null
+            orderlist: null, //订单信息
+            orderlistState: 0
         },
         mutations: {
             //换头像
@@ -56,10 +56,20 @@ const store = new Vuex.Store({
             modifyAccount(state, payload) {
                 state.personal.account = payload.payload
             },
-            //保存订单
+            //保存从数据库读入的订单
             saveOrder(state, payload) {
                 state.orderlist = payload.orderlist
                 console.log("订单保存了")
+                console.log(state.orderlist)
+                this.orderlistState = 1;
+            },
+            // 添加订单
+            addOrder(state, payload) {
+                if (state.orderlist === null) {
+                    state.orderlist = []
+                }
+                state.orderlist.push(payload.order)
+                console.log("订单添加了")
             },
             // 修改订单状态
             modifyOrderstate(state, payload) {

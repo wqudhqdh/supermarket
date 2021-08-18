@@ -127,84 +127,94 @@ export default {
       } else if (Object.keys(this.address).length === 0) {
         alert("请选择收货地址");
         return;
-      } else {
+      } else{
+        // 查找库存是否充足
         this.cart.forEach((item, index, arr) => {
           if (item.inventory < item.num) {
             this.currentIndex = index;
-            alert("库存不足");
             return;
-          } else {
-            item.inventory -= item.num;
-            let paypassword = prompt("请输入您的支付密码", "");
-            if (paypassword === this.$store.state.personal.paypassword) {
-              let account =
-                this.$store.state.personal.account - this.totalPrice;
-              if (account < 0) {
-                alert("余额不足，请充值");
-                //  保存订单到数据库
-                saveOrder(carts, this.address, 0).then((res) => {
-                  alert("订单保存成功")
-                  if (res) {
-                    let orderids=res.orderid
-                    alert(res.orderid)
-                    // 修改库存
-                    Modifyinventory(this.cart).then((res) => {
-                      if (res === "success") {
-                                // 从购物车删除商品
-                    this.cart.forEach((item, index, arr) => {
-                      deleteCart(item.cartid).then((res) => {});
-                    });
-                    // this.$router.push("/order/" + res.orderid);
+          }
+        });
+        if (this.currentIndex === -1) {
+            this.cart.forEach((item, index, arr) => {
+          item.inventory -= item.num;
+          item.sales+=item.num
+            })
+          let paypassword = prompt("请输入您的支付密码", "");
+          if (paypassword === this.$store.state.personal.paypassword) {
+            let account = this.$store.state.personal.account - this.totalPrice;
+            if (account < 0) {
+              alert("余额不足，请充值");
+              //  保存订单到数据库
+              saveOrder(carts, this.address, 0).then((res) => {
+                alert("订单保存成功");
+                if (res) {
+                  console.log(res);
+                  let orderids = res.orderid;
+                  // 从购物车删除商品
+                  this.cart.forEach((item, index, arr) => {
+                    deleteCart(item.cartid).then((res) => {});
+                  });
+                  res.address = [];
+                  res.address.push(this.address);
+                  res.product = this.cart;
+                  let order = res;
+                  console.log(order);
+                  // 添加订单到vuex中
+                  this.$store.commit({
+                    type: "addOrder",
+                    order,
+                  });
+                  // this.$router.push("/order/" + res.orderid);
+                  this.$router.push({
+                    name: "Order",
+                    params: {
+                      orderid: orderids,
+                      address: JSON.stringify(this.address),
+                      cartlist: JSON.stringify(this.cart),
+                    },
+                  });
+                  // }
+                  // });
+                }
+              });
+            } else {
+              this.$store.dispatch("changeAccount", account).then((res) => {
+                alert(res);
+                // 扣款成功
+                if (res === "success") {
+                  //  保存订单到数据库
+                  saveOrder(carts, this.address, 1).then((res) => {
+                    if (res) {
+                      // 修改库存
+                      Modifyinventory(this.cart).then((res) => {
+                        if (res === "success") {
+                        }
+                      });
+                      // 从购物车删除商品
+                      this.cart.forEach((item, index, arr) => {
+                        deleteCart(item.cartid).then((res) => {});
+                      });
+                    }
+                    // this.$router.push('/order/'+res.orderid+'&'+JSON.stringify(this.address));
                     this.$router.push({
                       name: "Order",
                       params: {
-                        orderid:orderids,
+                        orderid: res.orderid,
                         address: JSON.stringify(this.address),
                         cartlist: JSON.stringify(this.cart),
                       },
                     });
-                      }
-                    });
-            
-                  }
-                });
-              } else {
-                this.$store.dispatch("changeAccount", account).then((res) => {
-                  alert(res);
-                  // 扣款成功
-                  if (res === "success") {
-                    //  保存订单到数据库
-                    saveOrder(carts, this.address, 1).then((res) => {
-                      if (res) {
-                        // 修改库存
-                        Modifyinventory(this.cart).then((res) => {
-                          if (res === "success") {
-                          }
-                        });
-                        // 从购物车删除商品
-                        this.cart.forEach((item, index, arr) => {
-                          deleteCart(item.cartid).then((res) => {});
-                        });
-                      }
-                      // this.$router.push('/order/'+res.orderid+'&'+JSON.stringify(this.address));
-                      this.$router.push({
-                        name: "Order",
-                        params: {
-                          orderid: res.orderid,
-                          address: JSON.stringify(this.address),
-                          cartlist: JSON.stringify(this.cart),
-                        },
-                      });
-                    });
-                  }
-                });
-              }
-            } else {
-              alert("密码错误");
-              return;
+                  });
+                }
+              });
             }
+          } else {
+            alert("密码错误");
+            return;
           }
-        });
+        }
+
         // if (this.currentIndex != -1) {
 
         // }

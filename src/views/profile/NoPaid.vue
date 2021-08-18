@@ -1,6 +1,6 @@
 <template>
   <div>
-    <content-order :orderlist="order"></content-order>
+    <content-order :orderlist="order" :flag="stateFlag" ></content-order>
   </div>
 </template>
 <script>
@@ -14,11 +14,12 @@ export default {
   data() {
     return {
       order: [],
+      stateFlag:0
     };
   },
   async created() {
 
-    if (this.$store.state.orderlist === null) {
+    if (this.$store.state.orderlistState===0) {
       console.log("have");
       let orderlist = await findOrderByState(this.$store.state.personal._id);
       // 保存到vuex中
