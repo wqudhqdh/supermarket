@@ -157,6 +157,7 @@ export default {
 
 
 <style>
+@import "~assets/css/navbar.css";
 /* .fade-enter,
 .fade-leave-to{
   opacity: 0;
@@ -165,12 +166,12 @@ export default {
 .fade-leave-active{
   transition: opacity 1s ease;
 } */
-.fade-enter-active,
+/* .fade-enter-active,
 .fade-leave-active {
   transition: opacity 0.5s;
 }
 .fade-enter,
 .fade-leave-active {
   opacity: 0;
-}
+} */
 </style>

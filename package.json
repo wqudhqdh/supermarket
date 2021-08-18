@@ -8,9 +8,11 @@
   },
   "dependencies": {
     "axios": "^0.21.1",
+    "bootstrap": "^5.1.0",
     "core-js": "^3.6.4",
     "css-loader": "^3.6.0",
     "element-ui": "^2.15.3",
+    "jquery": "^3.6.0",
     "lodash": "^4.17.21",
     "qs": "^6.5.2",
     "swiper": "^4.5.1",

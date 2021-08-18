@@ -8,14 +8,16 @@ import ElementUI from 'element-ui';
 import 'element-ui/lib/theme-chalk/index.css';
 import 'swiper/dist/css/swiper.min.css'
 import 'swiper/dist/js/swiper.js'
-
+import $ from 'jquery'
+// import 'bootstrap/dist/css/bootstrap.min.css'
+// import 'bootstrap/dist/js/bootstrap.min'
 
 import 'assets/css/font-awesome.css'
-import 'assets/css/navbar.css'
+// import 'assets/css/navbar.css'
 import 'assets/css/base.css'
 import 'assets/font/iconfont.css'
 import 'assets/font/iconfont.js'
-import 'assets/css/footer.css'
+// import 'assets/css/footer.css'
 Vue.config.productionTip = false
 
 Vue.use(vueawesome)

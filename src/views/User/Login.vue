@@ -38,7 +38,12 @@
   </form>
 </template>
 <script>
-import { LoginAccount,LoginEmail, sendCodeToEmail, CheckEmails } from "network/user.js";
+import {
+  LoginAccount,
+  LoginEmail,
+  sendCodeToEmail,
+  CheckEmails,
+} from "network/user.js";
 import { parse } from "qs";
 export default {
   name: "Login",
@@ -74,8 +79,8 @@ export default {
       // 验证邮箱格式是否正确并监测是否注册过
       let a = await this.checkEmail();
       console.log(a);
-      console.log(this.checkemail)
-      if (this.checkemail==2) {
+      console.log(this.checkemail);
+      if (this.checkemail == 2) {
         console.log("1111");
         this.isRun = true;
         // 通知服务器发送验证码,并取得验证码
@@ -97,7 +102,7 @@ export default {
       }
     },
     //校验邮箱格式是否正确，并校验是否注册过
-async checkEmail() {
+    async checkEmail() {
       console.log("email");
       let regex =
         /^[A-Za-z0-9\u4e00-\u9fa5]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/;
@@ -105,17 +110,17 @@ async checkEmail() {
         this.checkemail = 0;
         return;
       } else {
-       let res=await CheckEmails(this.loginForm.account);
-          if (res === 1) {
-            alert("该邮箱未注册，请注册后登录");
-            this.checkemail=1;
-            return false;
-          } else {
-            console.log("2222")
-            this.checkemail=2;
-            console.log(this.checkemail)
-            return true;
-          }
+        let res = await CheckEmails(this.loginForm.account);
+        if (res === 1) {
+          alert("该邮箱未注册，请注册后登录");
+          this.checkemail = 1;
+          return false;
+        } else {
+          console.log("2222");
+          this.checkemail = 2;
+          console.log(this.checkemail);
+          return true;
+        }
       }
     },
     // 登录
@@ -139,21 +144,22 @@ async checkEmail() {
           if (this.code != this.receivecode) {
             alert("验证码输入错误,请重新验证");
           } else {
-                    this.loginForm.password=this.code
+            this.loginForm.password = this.code;
             // 生成token
             LoginEmail(this.loginForm).then((res) => {
-            console.log(res);
-            if (res.length != 0) {
-              // 将登陆成功之后的token，保存到sessionStorage
-              alert("登录成功");
-              window.sessionStorage.setItem("token", res.token);
-              let person=res.data[0];
-               this.$store.commit({
-          type:"savePersonalInfo",
-          person});
-              this.$router.push("/home");
-            }
-          });
+              console.log(res);
+              if (res.length != 0) {
+                // 将登陆成功之后的token，保存到sessionStorage
+                alert("登录成功");
+                window.sessionStorage.setItem("token", res.token);
+                let person = res.data[0];
+                this.$store.commit({
+                  type: "savePersonalInfo",
+                  person,
+                });
+                this.$router.push("/home");
+              }
+            });
           }
         } else {
           LoginAccount(this.loginForm).then((res) => {
@@ -162,11 +168,16 @@ async checkEmail() {
               // 将登陆成功之后的token，保存到sessionStorage
               alert("登录成功");
               window.sessionStorage.setItem("token", res.token);
-              let person=res.data[0];
+              let person = res.data[0];
               this.$store.commit({
-          type: "savePersonalInfo",
-          person});
-              this.$router.push("/home");
+                type: "savePersonalInfo",
+                person,
+              });
+              if (this.$store.state.personal.level === 0) {
+                this.$router.push("/home");
+              } else {
+                this.$router.push("/admin");
+              }
             } else {
               alert("账户或密码错误，请重试");
             }

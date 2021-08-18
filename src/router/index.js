@@ -38,7 +38,16 @@ const Checkout = () =>
     import ('views/Checkout.vue')
 const Order = () =>
     import ('views/Order.vue')
-
+const Admin = () =>
+    import ('views/Administrator/Admin.vue')
+const dataStatistics = () =>
+    import ('views/Administrator/dataStatistics.vue')
+const orderManager = () =>
+    import ('views/Administrator/orderManager.vue')
+const productManager = () =>
+    import ('views/Administrator/productManager.vue')
+const userManager = () =>
+    import ('views/Administrator/userManager.vue')
 
 
 const router = new Router({
@@ -122,6 +131,33 @@ const router = new Router({
                 path: '/order',
                 name: "Order",
                 component: Order
+            }, {
+                // 后台管理
+                path: '/admin',
+                name: "Admin",
+                component: Admin,
+                children: [{
+                        // 数据统计
+                        path: "data",
+                        component: dataStatistics
+                    },
+                    {
+                        // 商品管理
+                        path: "productmanager",
+                        component: productManager
+                    },
+                    {
+                        // 用户管理
+                        path: "usermanager",
+                        component: userManager
+                    },
+                    {
+                        // 订单管理
+                        path: "ordermanager",
+                        component: orderManager
+                    }
+
+                ]
             }
         ],
         mode: 'history'
