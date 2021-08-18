@@ -58,8 +58,9 @@ export default {
 }
 
 .admin .pro-container .left {
-  width: 20%;
+  width: 10%;
   background-color: white;
+  text-align: center;
 }
 
 .admin .pro-container .left .order,
@@ -68,9 +69,7 @@ export default {
   display: flex;
   justify-content: space-between;
   flex-direction: column;
-  text-align: left;
   box-sizing: border-box;
-  padding-left: 45px;
 }
 
 .admin .pro-container .left .order {
@@ -103,7 +102,7 @@ export default {
 }
 
 .admin .pro-container .right {
-  width: 75%;
+  width: 85%;
   background-color: white;
 }
 </style>
