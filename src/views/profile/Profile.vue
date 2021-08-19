@@ -1,7 +1,6 @@
 <template>
   <div>
     <nav-bar></nav-bar>
-
     <div style="background-color:rgb(243 242 242)" class="profile">
     <div class="title w">
         <router-link to="/home">首页</router-link>/{{this.$route.query.info}}

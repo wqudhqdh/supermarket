@@ -11,7 +11,7 @@
           <li v-for="(item, index) in cart" :key="index">
             <div class="img-info">
               <img
-                :src="require('assets/img/' + item.showInfoImg)"
+                :src="item.showInfoImg"
                 style="width: 80px; height: 80px"
               />
               <span>{{ item.name }} {{ item.version }} {{ item.color }}</span>
@@ -227,7 +227,7 @@ export default {
   },
   // 获取要买的商品
   created() {
-    let cartlist = JSON.parse(this.$route.params.cart);
+    let cartlist = JSON.parse(this.$route.params.s);
     cartlist.forEach((element) => {
       if (element.flag === true || element.flag === "checked") {
         this.cart.push(element);

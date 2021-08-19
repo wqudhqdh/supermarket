@@ -51,7 +51,7 @@
     <div class="productInfo-container w">
       <div class="left">
         <img
-          :src="require('assets/img/' + productInfo[0].showInfoImg)"
+          :src="productInfo[0].showInfoImg"
           style="width: 560px; height: 560px"
         />
       </div>
@@ -107,7 +107,7 @@
   </div>
 </template>
 <script>
-import { getProductDetail, getAddress,addToShoppingCart } from "network/detail.js";
+import { getProductDetail, getAddress,addToShoppingCart,checkProduct} from "network/detail.js";
 import NavBar from "components/common/navbar/NavBar.vue";
 import Footer from "components/common/Footer.vue";
 export default {
@@ -162,7 +162,15 @@ export default {
     // 加入购物车
     addShoppingCart()
     {
-       this.productInfo.forEach((item,index,array)=>{
+      //判断选择的商品是否有货
+checkProduct(this.id,this.co,this.ver).then((res)=>{
+  alert(res)
+      if(res=='error')
+      {
+        alert("当前商品无货")
+      }
+      else{
+            this.productInfo.forEach((item,index,array)=>{
              if(item.color===this.co&&item.version===this.ver)
              {
               //  alert(this.$store.state.personal._id)
@@ -175,6 +183,9 @@ export default {
               return;
              }
        });
+      }
+})
+     
     
     },
     // 获取一共有多少条数据

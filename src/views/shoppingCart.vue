@@ -29,7 +29,7 @@
               </td>
               <td class="show-img">
                 <img
-                  :src="require('assets/img/' + item.showInfoImg)"
+                  :src="item.showInfoImg"
                   style="width: 80px; height: 80px"
                 />
                 <span>{{ item.name }} {{ item.version }} {{ item.color }}</span>
@@ -179,8 +179,13 @@ export default {
   },
   methods: {
     checkout() {
-      let s = JSON.stringify(this.cart);
-      this.$router.push("/checkout/" + s);
+      let cart= JSON.stringify(this.cart);
+      this.$router.push({
+        name: "Checkout",
+        params: {
+           s:cart
+        },
+      });
     },
     // 全选
     checkAll(event) {

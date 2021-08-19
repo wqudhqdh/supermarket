@@ -43,3 +43,15 @@ export function productDetail(id) {
         }
     })
 }
+// 获取商品是否有货
+export function checkProduct(id, color, version) {
+    return request({
+        url: '/api/checkproduct',
+        method: 'post',
+        data: {
+            id,
+            color,
+            version
+        }
+    })
+}

@@ -13,7 +13,7 @@
         <li v-for="(item2, index2) in item.product" :key="index2">
           <div>
             <img
-              :src="require('assets/img/' + item2.showInfoImg)"
+              :src="item2.showInfoImg"
               style="width: 80px; height: 80px"
             />
             <span>{{ item2.name }} {{ item2.version }} {{ item2.color }}</span>

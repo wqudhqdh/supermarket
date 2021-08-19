@@ -1,13 +1,13 @@
 <template>
 <div class="container" @click="itemclick">
     <!-- <slot name="img"></slot> -->
-    <img :src="require('assets/img/'+productinfo.img)">
+    <img :src="productinfo.img">
     <div class="info-container">
         <div class="product-info">
             <h3 class="name">{{productinfo.name}}</h3>
             <span class="info">{{productinfo.info}}</span>
         </div>
-              <span class="price">{{productinfo.price}}</span>
+              <span class="price">{{productinfo.price}}元起</span>
     </div>
 </div>
 </template>

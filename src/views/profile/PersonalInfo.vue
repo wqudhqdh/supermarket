@@ -62,10 +62,16 @@
       <ul>
         <li>
           <img src="~assets/img/portal-icon-1.png" />
-          
+
           <div>
             <span>待支付的订单</span>
-            <router-link :to="{ path: '/profile/order/nopaid', query: { info: '我的订单',info2:'待支付' } }">查看待支付的订单></router-link>
+            <router-link
+              :to="{
+                path: '/profile/order/nopaid',
+                query: { info: '我的订单', info2: '待支付' },
+              }"
+              >查看待支付的订单></router-link
+            >
           </div>
         </li>
         <li>
@@ -73,12 +79,13 @@
 
           <div>
             <span>待收货的订单</span>
-               <router-link
-          :to="{
-            path: '/profile/order/waitesend',
-            query: { info: '我的订单' },
-          }"
-        >查看待收货的订单></router-link>
+            <router-link
+              :to="{
+                path: '/profile/order/waitesend',
+                query: { info: '我的订单' },
+              }"
+              >查看待收货的订单></router-link
+            >
           </div>
         </li>
         <li>
@@ -132,12 +139,12 @@ export default {
         } else {
           modifyusername(this.$store.state.personal._id, this.name).then(
             (res) => {
-              let name=this.name
+              let name = this.name;
               this.$store.commit({
                 type: "changeUsername",
-                name
+                name,
               });
-              alert('修改成功')
+              alert("修改成功");
             }
           );
         }

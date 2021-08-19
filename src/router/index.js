@@ -123,7 +123,7 @@ const router = new Router({
                 component: ShoppingCart
             },
             {
-                path: "/checkout/:cart",
+                path: "/checkout/",
                 name: "Checkout",
                 component: Checkout
             },

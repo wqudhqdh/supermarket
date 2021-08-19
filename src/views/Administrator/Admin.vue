@@ -50,7 +50,7 @@ export default {
 }
 .admin .admin-container {
   background-color: rgb(243 242 242);
-  margin-top: 20px;
+padding-top: 20px;
 }
 .admin .pro-container {
   display: flex;
