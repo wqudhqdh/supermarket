@@ -136,6 +136,7 @@ const router = new Router({
                 path: '/admin',
                 name: "Admin",
                 component: Admin,
+                redirect: '/admin/productmanager',
                 children: [{
                         // 数据统计
                         path: "data",

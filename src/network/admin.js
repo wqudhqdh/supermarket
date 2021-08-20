@@ -34,3 +34,23 @@ export function getAllUser() {
         method: "get"
     })
 }
+// 删除用户
+export function deleteUser(id) {
+    return request({
+        url: "/api/deleteUser",
+        method: "get",
+        params: {
+            id
+        }
+    })
+}
+//删除订单
+export function deleteOrders(id) {
+    return request({
+        url: '/api/deleteOrder',
+        method: 'post',
+        data: {
+            id
+        }
+    })
+}

@@ -24,7 +24,7 @@ export default {
   name: "Admin",
   data(){
     return{
-      currentIndex:-1
+      currentIndex:0
     }
   },
   methods:{
@@ -61,6 +61,7 @@ padding-top: 20px;
   width: 10%;
   background-color: white;
   text-align: center;
+  height: 450px;
 }
 
 .admin .pro-container .left .order,

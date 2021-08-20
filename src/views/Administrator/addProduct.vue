@@ -39,8 +39,8 @@
     <div v-else-if="active === 1">
       <h1>商品参数信息选择</h1>
       <span>颜色：</span>
-      <el-select v-model="product.color" placeholder="请选择" @change="change()">
-        <el-option
+      <el-select v-model="product.color" placeholder="请选择" @change="change()" v-if="product.category.includes('手机')"> 
+        <el-option 
           v-for="item in colors"
           :key="item.number"
           :label="item.name"
@@ -48,18 +48,42 @@
         >
         </el-option>
       </el-select>
-      <div class="version">
+        <el-select v-model="product.color" placeholder="请选择" @change="change()" v-else> 
+        <el-option 
+          v-for="item in screen"
+          :key="item.name"
+          :label="item.color"
+          :value="item.color"
+        >
+        </el-option>
+      </el-select>
+      <div class="version" style="margin-top:10px" v-if="product.category.includes('手机')">
         <span>内存：</span>
         <el-select v-model="product.version" placeholder="请选择" @change="change()">
           <el-option
             v-for="item in versions"
+            :key="item.color"
+            :label="item.name"
+            :value="item.name"
+          >
+          </el-option>
+        </el-select>
+   
+      </div>
+       <div class="version" style="margin-top:10px" v-else>
+        <span>尺寸：</span>
+        <el-select v-model="product.version" placeholder="请选择" @change="change()">
+          <el-option
+            v-for="item in screen"
             :key="item.number"
             :label="item.name"
             :value="item.name"
           >
           </el-option>
         </el-select>
-        <div>
+   
+      </div>
+           <div>
           <span>价格：</span>
           <el-input
             v-model="product.price"
@@ -77,7 +101,6 @@
             style="width: 217px; margin: 10px 0px 0px 0px"
           ></el-input>
         </div>
-      </div>
     </div>
 
     <div v-else-if="active === 2">
@@ -130,6 +153,15 @@ export default {
           number: 3,
         },
       ],
+       screen:[
+         {
+           name:"65英寸",
+           color:"黑色"
+         },{
+         name:"63英寸",
+           color:"灰色"
+         }
+       ],
       versions: [
         {
           name: "6+128G",
