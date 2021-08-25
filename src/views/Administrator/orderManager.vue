@@ -2,9 +2,8 @@
   <div class="orderManager">
     <div class="top">
       <el-button type="primary" @click="showAll()">显示所有订单</el-button>
-      <!-- <el-button type="primary" @click="addProduct()">添加商品</el-button> -->
       <input type="text" placeholder="请输入订单id" v-model="search" />
-      <i class="fa fa-search" aria-hidden="true" @click="searchClick()"></i>
+      <i class="fa fa-search" aria-hidden="true" @click="getShow()"></i>
     </div>
     <div class="contentOrder">
       <div class="item">
@@ -31,7 +30,6 @@
                 <div>单价</div>
                 <div>实付款</div>
                 <div>交易状态</div>
-                <!-- <div v-if="element.state!= 3">交易操作</div> -->
               </li>
               <li
                 v-for="(item2, index2) in element.product"
@@ -69,12 +67,17 @@
                   <div class="">总金额：{{ getTotalPrice(element) }}元</div>
                   <button
                     v-if="element.state == 0"
-                    @click="cancleOrder(element.orderid,3)"
+                    @click="cancleOrder(element.orderid, 3)"
                   >
                     取消订单
                   </button>
 
-                  <button v-else-if="element.state == 1" @click="cancleOrder(element.orderid,2)">发货</button>
+                  <button
+                    v-else-if="element.state == 1"
+                    @click="cancleOrder(element.orderid, 2)"
+                  >
+                    发货
+                  </button>
                   <button @click="deleteOrder(element.orderid)">
                     删除订单
                   </button>
@@ -95,8 +98,10 @@ export default {
   data() {
     return {
       orderlist: [],
+      search: "",
     };
   },
+
   async created() {
     let p = new Promise((resolve, reject) => {
       getAllUser().then((res) => {
@@ -118,34 +123,55 @@ export default {
         });
       });
     });
+    console.log(this.orderlist);
   },
   methods: {
-    // 显示所有订单
-   async  showAll()
-    {
-  let p = new Promise((resolve, reject) => {
-      getAllUser().then((res) => {
-        if (res != "error") {
-          resolve(res);
-        }
-      });
-    });
-    p.then((value) => {
-      value.forEach((item) => {
-        let userOrder = {};
-        userOrder.userid = item._id;
-        userOrder.name = item.username;
-        userOrder.phone = item.phone;
-        let res = this.getUserOrder(item._id);
-        res.then((value) => {
-          userOrder.orders = value;
-          this.orderlist.push(userOrder);
+    getShow() {
+      alert("dianji");
+      let s = {};
+      this.orderlist.forEach((item, index) => {
+        item.orders.forEach((item1, index1) => {
+          if (item1.orderid === this.search) {
+            s.name = item.name;
+            s.phone = item.phone;
+            s.userid = item.userid;
+            s.orders = [];
+            s.orders.push(item1);
+            this.orderlist.length = 0;
+            this.orderlist.push(s);
+            return;
+          }
         });
       });
-    });
+    },
+    // 显示所有订单
+    async showAll() {
+      if (this.orderlist === []||this.search==="") {
+        this.orderlist.length=0
+        let p = new Promise((resolve, reject) => {
+          getAllUser().then((res) => {
+            if (res != "error") {
+              resolve(res);
+            }
+          });
+        });
+        p.then((value) => {
+          value.forEach((item) => {
+            let userOrder = {};
+            userOrder.userid = item._id;
+            userOrder.name = item.username;
+            userOrder.phone = item.phone;
+            let res = this.getUserOrder(item._id);
+            res.then((value) => {
+              userOrder.orders = value;
+              this.orderlist.push(userOrder);
+            });
+          });
+        });
+      }
     },
     // 取消订单
-    cancleOrder(oid,st) {
+    cancleOrder(oid, st) {
       ModifyOrderByState(oid, st).then((res) => {
         if (res === "success") {
           this.orderlist.forEach((item, index) => {
@@ -164,7 +190,7 @@ export default {
           this.orderlist.forEach((item, ind) => {
             item.orders.forEach((items, index) => {
               if (items.orderid === oid) {
-                this.orderlist[ind].orders.splice(index,1);
+                this.orderlist[ind].orders.splice(index, 1);
               }
             });
           });
@@ -226,10 +252,8 @@ export default {
 .contentOrder .item ul {
   width: 100%;
   flex-direction: column;
-  /* border-bottom: 1px solid grey; */
 
   margin-bottom: 20px;
-  /* padding-bottom: 20px; */
 }
 .contentOrder .item ul li {
   width: 100%;
