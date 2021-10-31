@@ -69,8 +69,8 @@
 
         <div class="bottom-right">
           <form action="#">
-            <input type="text" placeholder="手机" />
-            <span><i class="fa fa-search" aria-hidden="true"></i></span>
+            <input type="text" placeholder="手机" v-model="text" />
+            <span><i class="fa fa-search" aria-hidden="true" @click="search()"></i></span>
           </form>
         </div>
       </div>
@@ -88,7 +88,6 @@ export default {
   components: {
     NavShow,
   },
-  // props:["cate"],,
   data() {
     return {
       show: false,
@@ -96,6 +95,7 @@ export default {
       allCategoryProducts: [],
       cate: [],
       personal: {},
+      text:"手机"
     };
   },
   computed: {
@@ -127,6 +127,15 @@ export default {
     });
   },
   methods: {
+    search(){
+        this.$router.push({
+                    name: "ShowAllProducts",
+                    params: {
+                      type: this.text,
+                    },
+                  });
+   
+    },
     //进入显示类别信息
     enter(names) {
       let productsAll = this.allCategoryProducts;

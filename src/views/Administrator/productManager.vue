@@ -49,7 +49,7 @@
         >
       </el-table-column>
     </el-table>
-    <add-product v-if="addState"></add-product>
+    <add-product v-if="addState" @addProductClick='addProduct()'></add-product>
   </div>
 </template>
 <script>

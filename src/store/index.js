@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import { ChangeAccount } from 'network/profile.js'
+import { stringify } from 'qs'
 //安装插件
 Vue.use(Vuex)
 
@@ -8,7 +9,7 @@ Vue.use(Vuex)
 const store = new Vuex.Store({
         state: {
             products: [], //商品
-            personal: null, //个人信息
+            personal: JSON.parse(sessionStorage.getItem('user')), //个人信息
             showState: 1,
             addressinfo: null, //地址信息
             addressflag: 0,
@@ -33,6 +34,7 @@ const store = new Vuex.Store({
             // 存储登录的个人信息
             savePersonalInfo(state, payload) {
                 state.personal = payload.person
+                sessionStorage.setItem('user', JSON.stringify(payload.person))
                 console.log(payload.person)
                 console.log(state.personal)
                 console.log("个人信息保存到vuex中了")

@@ -98,6 +98,7 @@ export default {
   },
   // 获取订单号
   created() {
+    
     this.orderid = this.$route.params.orderid;
     this.address = JSON.parse(this.$route.params.address);
     this.productlist = JSON.parse(this.$route.params.cartlist);

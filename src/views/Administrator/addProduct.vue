@@ -187,7 +187,7 @@ export default {
       if (this.active++ > 2) {
         alert("dsd")
          addProduct(JSON.stringify(this.product)).then(res=>{
-                console.log(res)
+               this.$emit('addProductClick')
          })
       }
     },

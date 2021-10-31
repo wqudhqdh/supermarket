@@ -48,7 +48,8 @@ const productManager = () =>
     import ('views/Administrator/productManager.vue')
 const userManager = () =>
     import ('views/Administrator/userManager.vue')
-
+const showallproducts = () =>
+    import ('views/ShowAllProducts.vue')
 
 const router = new Router({
         routes: [{
@@ -59,7 +60,13 @@ const router = new Router({
             {
                 path: '/home',
                 name: 'Home',
-                component: Home
+                component: Home,
+
+            },
+            {
+                path: '/showallproducts',
+                name: 'ShowAllProducts',
+                component: showallproducts
             },
             {
                 path: '/user',

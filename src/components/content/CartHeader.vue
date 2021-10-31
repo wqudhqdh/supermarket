@@ -27,7 +27,7 @@
                     >个人中心</router-link
                   ></el-dropdown-item
                 >
-                <el-dropdown-item>退出登录</el-dropdown-item>
+                <el-dropdown-item @click.native="loginout">退出登录</el-dropdown-item>
                 <el-dropdown-item>我的喜欢</el-dropdown-item>
               </el-dropdown-menu>
             </el-dropdown>
@@ -41,7 +41,15 @@
 </template>
 <script>
 export default {
-    name:"CartHeader"
+    name:"CartHeader",
+    methods:{
+      // 退出登录
+       loginout()
+      {
+        window.sessionStorage.clear()
+        this.$store.commit('deletePersonal');
+      }
+    }
 }
 </script>
 <style scoped>
