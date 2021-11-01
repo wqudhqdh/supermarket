@@ -185,7 +185,7 @@ export default {
   methods: {
     next() {
       if (this.active++ > 2) {
-        alert("dsd")
+        alert("添加成功")
          addProduct(JSON.stringify(this.product)).then(res=>{
                this.$emit('addProductClick')
          })

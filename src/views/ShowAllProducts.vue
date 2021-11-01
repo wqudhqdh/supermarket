@@ -3,7 +3,7 @@
     <nav-bar :cate="category"></nav-bar>
     <ul class="allproduct">
       <li
-        v-for="(item, index) in this.$store.getters.getProductsByType(text)"
+        v-for="(item, index) in this.$store.getters.getProductsByType(text,false)"
         :key="index"
       >
         <product :productinfo="item"> </product>
@@ -31,8 +31,6 @@ export default {
   },
   created() {
     this.text = this.$route.params.type;
-    console.log(this.text);
-    console.log('dayil1')
   },
 };
 </script>

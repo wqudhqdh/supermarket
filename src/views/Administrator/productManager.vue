@@ -76,7 +76,6 @@ export default {
   },
   methods: {
     searchClick() {
-      alert(this.search);
       let searchlist=[]
       this.productlist.forEach((item, index, arr) => {
         if (item.pid === this.search) {

@@ -2,13 +2,13 @@
   <div class="showProduct w">
       <div  class="title">
               <span style="font-size:24px">{{type}}</span>
-              <a href="#"><span style="font-size:16px">查看更多<i class="fa  fa-chevron-circle-right"></i></span></a></div>
+              <span style="font-size:16px" @click="itemclick()">查看更多<i class="fa  fa-chevron-circle-right"></i></span></div>
       <div class="content">
     <div class="brand-left">
       <slot name="brand"></slot>
     </div>
     <ul class="product-right">
-      <li v-for="(item, index) in this.$store.getters.getProductsByType(type)" :key="index">
+      <li v-for="(item, index) in this.$store.getters.getProductsByType(type,true)" :key="index">
      <product :productinfo="item">
         </product>
       </li>
@@ -24,15 +24,21 @@ export default {
     return {
     };
   },
-  // mounted(){
-  //   var a=this.$store.getters.getProductsByType(type)
-  //   console.log(a)
-  // },
   props:["type"],
   components: {
     Product,
   },
-  methods: {},
+  methods: {
+    itemclick(){
+        this.$router.push({
+                    name: "ShowAllProducts",
+                    params: {
+                      type: this.type,
+                    },
+                  });
+   
+    },
+  },
 };
 </script>
 <style scoped>

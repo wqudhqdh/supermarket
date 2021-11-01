@@ -104,14 +104,22 @@ const store = new Vuex.Store({
         getters: {
             //获取对应类型的要展示的商品
             getProductsByType: (state) => {
-                return (ty) => {
+                return (ty, flag) => {
                     let list = []
-                    for (let item in state.products) {
-                        if (state.products[item].category.indexOf(ty) != -1) {
-                            list.push(state.products[item]);
+                    if (flag) {
+                        for (let item in state.products) {
+                            if (state.products[item].category.indexOf(ty) != -1) {
+                                list.push(state.products[item]);
+                            }
+                            if (list.length === 8) {
+                                break;
+                            }
                         }
-                        if (list.length === 8) {
-                            break;
+                    } else {
+                        for (let item in state.products) {
+                            if (state.products[item].category.indexOf(ty) != -1) {
+                                list.push(state.products[item]);
+                            }
                         }
                     }
                     return list;
